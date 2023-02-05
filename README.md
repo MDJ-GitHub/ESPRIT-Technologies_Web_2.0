@@ -9,4 +9,4 @@ List of all Exercices in as seperate branches :
 
  2.1 - Contrôleur et Routing | Atelier2.1      : https://github.com/MDJ-GitHub/ESPRIT-Technologies_Web_2.0/tree/2.1-Atelier2.1
 
-<NEW> 2.2 - Contrôleur et Routing | Atelier2.2 : https://github.com/MDJ-GitHub/ESPRIT-Technologies_Web_2.0/tree/2.2-Atelier2.2
+[NEW!] 2.2 - Contrôleur et Routing | Atelier2.2 : https://github.com/MDJ-GitHub/ESPRIT-Technologies_Web_2.0/tree/2.2-Atelier2.2
