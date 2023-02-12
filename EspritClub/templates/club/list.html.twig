@@ -1,0 +1,78 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ClubController!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="example-wrapper" style="text-align:center;">
+<h1> Clubs ESPRIT</h1>
+
+
+{% if formations is defined and formations is empty %}
+<h3>Il n y a pas des formations (variable n'est pas declaré ou il est vide) </h3>
+{% else %}
+
+<h2> List des formations </h2>
+{% for i in formations %}
+    {{ i.Titre }} 
+    {% if i.nb_participants == 0 %}
+
+<form action={{ url('app_clubnn',{'nom':i.Titre}) }}>
+    <input type="submit" value="Participer" />
+</form>
+    {% else %}
+
+    <br>
+
+        {% endif %}
+{% endfor %}
+
+<h2> Nombre des formations : {{ formations|length }} </h2>
+
+<h2> List des formations theorique </h2>
+{% for i in formations %}
+{% if i.Description == 'formation theorique' %}
+    {{ i.Titre }} 
+       <br>
+    {% endif %}
+{% endfor %}
+
+
+
+
+{% set maxi = 0 %}
+{% set maxj = 0 %}
+{% set j = 0 %}
+{% for i in formations %}
+{% if i.nb_participants > maxi %}
+
+{% set maxi = i.nb_participants %}
+{% set maxj = j %}
+    {% endif %}
+    {% set j = j + 1 %}
+{% endfor %}
+<h2> Formation avec plus grand nombre de participants :   {{ attribute(formations, maxj).Titre }} </h2>
+
+
+{% set totalp = 0 %}
+{% for i in formations %}
+{% set totalp = totalp + i.nb_participants%}
+{% endfor %}
+<h2> Nombre total des participants :   {{ totalp }} </h2>
+
+{% endif %}
+
+<br>
+
+Au sein d'Esprit, les associations et clubs remplissent plusieurs rôles étant donné la diversité des motivations qui animent ceux qui en sont à l'origine. Conscients 
+de l'importance de la vie associative, les étudients jouent un rôle important dans l'élaboration et la transmission des messages aux destinataires. Ci-dessous la liste des
+clubs d'Esprit. N'hésiter pas à la completer. 
+
+<img width="70%" height="70%" src="{{ asset('images/esprit.png') }}">
+
+</div>
+{% endblock %}
