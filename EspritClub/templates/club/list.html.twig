@@ -1,78 +1,173 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ClubController!{% endblock %}
+{% block title %}Hello ClubListController!
+{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+	<style>
+		.example-wrapper {
+			margin: 1em auto;
+			max-width: 800px;
+			width: 95%;
+			font: 18px / 1.5 sans-serif;
+		}
+		.example-wrapper code {
+			background: #F5F5F5;
+			padding: 2px 6px;
+		}
+	</style>
 
-<div class="example-wrapper" style="text-align:center;">
-<h1> Clubs ESPRIT</h1>
+	<div class="example-wrapper" style="text-align:center;">
+		<h1>
+			Clubs ESPRIT</h1>
+		{% if formations is not defined or formations is empty %}
+
+			<h3>Il n y a pas des formations (variable n'est pas declaré ou il est vide)
+			</h3>
+
+		{% else %}
+
+			<h2>
+				List des formations
+			</h2>
+			<table border="2">
+
+				<tr>
+					<td>
+						ref
+					</td>
+					<td>
+						Titre
+					</td>
+					<td>
+						Description
+					</td>
+					<td>
+						date_debut
+					</td>
+					<td>
+						date_fin
+					</td>
+					<td>
+						nb_participants
+					</td>
+				</tr>
+
+				{% for i in formations %}
+					<tr>
+						<td>
+							{{ i.ref }}
+						</td>
+						<td>
+							{{ i.Titre }}
+						</td>
+						<td>
+							{{ i.Description }}
+						</td>
+						<td>
+							{{ i.date_debut }}
+						</td>
+						<td>
+							{{ i.date_fin }}
+						</td>
+						<td>
+							{{ i.nb_participants }}
+							{% if i.nb_participants == 0 %}
+								<form action={{ url('app_clubnn',{'nom':i.Titre} ) }}>
+									<input type="submit" value="Participer (Button)"/>
+								</form>
+							{% endif %}
 
 
-{% if formations is defined and formations is empty %}
-<h3>Il n y a pas des formations (variable n'est pas declaré ou il est vide) </h3>
-{% else %}
-
-<h2> List des formations </h2>
-{% for i in formations %}
-    {{ i.Titre }} 
-    {% if i.nb_participants == 0 %}
-
-<form action={{ url('app_clubnn',{'nom':i.Titre}) }}>
-    <input type="submit" value="Participer" />
-</form>
-    {% else %}
-
-    <br>
-
-        {% endif %}
-{% endfor %}
-
-<h2> Nombre des formations : {{ formations|length }} </h2>
-
-<h2> List des formations theorique </h2>
-{% for i in formations %}
-{% if i.Description == 'formation theorique' %}
-    {{ i.Titre }} 
-       <br>
-    {% endif %}
-{% endfor %}
+							{% if i.nb_participants == 0 %}
+                            <a href={{url('app_clubnn',{'nom':i.Titre})}}> 
+                            Participer (Lien)
+                            </a>
+							{% endif %}
+						</td>
+					{% endfor %}
+				</tr>
+			</table>
 
 
+			<h3>
+				Liste des titres en maj</h3>
+			{% for i in formations %}
+				{{ i.Titre|upper }}
+				<br>
+			{% endfor %}
+
+			<h3>
+				Nombre des formations :
+				{{ formations|length }}
+			</h3>
 
 
-{% set maxi = 0 %}
-{% set maxj = 0 %}
-{% set j = 0 %}
-{% for i in formations %}
-{% if i.nb_participants > maxi %}
-
-{% set maxi = i.nb_participants %}
-{% set maxj = j %}
-    {% endif %}
-    {% set j = j + 1 %}
-{% endfor %}
-<h2> Formation avec plus grand nombre de participants :   {{ attribute(formations, maxj).Titre }} </h2>
+			<h3>
+				List des formations theorique
+			</h3>
+			{% for i in formations %}
+				{% if i.Description == 'formation theorique' %}
+					{{ i.Titre }}
+					<br>
+				{% endif %}
+			{% endfor %}
 
 
-{% set totalp = 0 %}
-{% for i in formations %}
-{% set totalp = totalp + i.nb_participants%}
-{% endfor %}
-<h2> Nombre total des participants :   {{ totalp }} </h2>
+			{% set maxindex = 0 %}
+			{% set maxvalue = 0 %}
+			{% set j = 0 %}
 
-{% endif %}
+			{% for i in formations %}
 
-<br>
+				{% if i.nb_participants > maxvalue %}
+					{% set maxvalue = i.nb_participants %}
+					{% set maxindex = j %}
+				{% endif %}
 
-Au sein d'Esprit, les associations et clubs remplissent plusieurs rôles étant donné la diversité des motivations qui animent ceux qui en sont à l'origine. Conscients 
-de l'importance de la vie associative, les étudients jouent un rôle important dans l'élaboration et la transmission des messages aux destinataires. Ci-dessous la liste des
-clubs d'Esprit. N'hésiter pas à la completer. 
+				{% set j = j + 1 %}
+			{% endfor %}
+			<h3>
+				Formation avec plus grand nombre de participants :
+				{{ attribute(formations, maxindex).Titre }}
+			</h3>
 
-<img width="70%" height="70%" src="{{ asset('images/esprit.png') }}">
 
-</div>
+			{# Autre methode #}
+			{% set max_participants = 0 %}
+			{% for i in formations %}
+				{% set max_participants = max(i.nb_participants,max_participants) %}
+			{% endfor %}
+
+			{% for i in formations %}
+				{% if i.nb_participants == max_participants %}
+					<h3>
+						Autre methode : Formation avec plus grand nombre de participants :
+						{{ i.Titre }}
+					</h3>
+				{% endif %}
+			{% endfor %}
+
+			{% set totalp = 0 %}
+			{% for i in formations %}
+				{% set totalp = totalp + i.nb_participants%}
+			{% endfor %}
+			<h3>
+				Nombre total des participants :
+				{{ totalp }}
+			</h3>
+
+		{% endif %}
+		<br>
+        
+
+		Au sein d'Esprit, les associations et clubs remplissent plusieurs rôles étant donné la diversité des motivations qui animent ceux qui en sont à l'origine. Conscients 
+																																de l'importance de la vie associative, les étudients jouent un rôle important dans l'élaboration et la transmission des messages aux destinataires. Ci-dessous la liste des
+																																clubs d'Esprit. N'hésiter pas à la completer.
+		<br>
+        <br>
+
+		<img width="70%" height="70%" src="{{ asset('images/esprit.png') }}">
+
+	</div>
 {% endblock %}

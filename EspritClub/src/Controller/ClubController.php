@@ -51,7 +51,7 @@ class ClubController extends AbstractController
             'nb_participants'=>12)) ;
     
             return $this->render('club/list.html.twig', [
-                'controller_name' => 'ClubController',
+
                 'formations' => $formations
             ]);
 
