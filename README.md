@@ -13,4 +13,4 @@ List of all Exercices in as seperate branches :
 
 3 - Twig | Atelier3                           : https://github.com/MDJ-GitHub/ESPRIT-Technologies_Web_2.0/tree/3-Atelier3/
 
-4 - ORM Doctrine | Atelier4                    : https://github.com/MDJ-GitHub/ESPRIT-Technologies_Web_2.0/tree/4-Atelier4/
+[NEW!] 4 - ORM Doctrine | Atelier4            : https://github.com/MDJ-GitHub/ESPRIT-Technologies_Web_2.0/tree/4-Atelier4/
