@@ -14,7 +14,7 @@ class AddClassroomType extends AbstractType
     {
         $builder
             ->add('Name')
-            ->add('save',SubmitType::class)
+           
         ;
     }
 

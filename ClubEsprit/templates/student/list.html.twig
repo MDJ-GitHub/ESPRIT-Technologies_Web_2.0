@@ -22,17 +22,20 @@
 			{{ controller_name }}! ✅</h1>
 
 		<h2>
-			List des classroom
+			List des Students
 		</h2>
 
 		<table border="2">
 
 			<tr>
 				<td>
-					id
+					NSC
 				</td>
 				<td>
-					name
+					Email
+				</td>
+				<td>
+					Classroom
 				</td>
 				<td>
 					supprimer
@@ -40,7 +43,7 @@
 				<td>
 					modifier
 				</td>
-				<td>
+							<td>
 					afficher
 				</td>
 
@@ -49,23 +52,26 @@
 			{% for i in list %}
 				<tr>
 					<td>
-						{{ i.id }}
+						{{ i.nsc }}
 					</td>
 					<td>
-						{{ i.name }}
+						{{ i.email }}
 					</td>
 					<td>
-						<form action={{ url('app_classroomRemove',{'id':i.getId()} ) }}>
+						{{ i.classroom.getName()}}
+					</td>
+					<td>
+						<form action={{ url('app_studentRemove',{'nsc':i.getNSC()} ) }}>
 							<input type="submit" value="Supprimer"/>
 						</form>
 					</td>
 					<td>
-						<form action={{ url('app_classroomModify',{'id':i.getId()} ) }}>
+						<form action={{ url('app_studentModify',{'nsc':i.getNSC()} ) }}>
 							<input type="submit" value="Modifier"/>
 						</form>
 					</td>
-					<td>
-						<form action={{ url('app_classroomShow',{'id':i.getId()} ) }}>
+							<td>
+						<form action={{ url('app_studentShow',{'nsc':i.getNSC()} ) }}>
 							<input type="submit" value="Afficher"/>
 						</form>
 					</td>
@@ -73,15 +79,14 @@
 				{% endfor %}
 			</tr>
 		</table>
-
 		<br>
-		<form action={{ url('app_classroomAdd') }}>
-			<input type="submit" value="Ajouter Classroom"/>
+		<form action={{ url('app_studentAdd') }}>
+			<input type="submit" value="Ajouter Student"/>
 		</form>
 
-		<form action={{ url('app_classroomRouteStudent') }}>
-			<input type="submit" value="Liste des Students"/>
-		</form>
+				<form action={{ url('app_studentRouteStudent') }}>
+									<input type="submit" value="Liste des Classrooms"/>
+								</form>
 
 	</div>
 {% endblock %}

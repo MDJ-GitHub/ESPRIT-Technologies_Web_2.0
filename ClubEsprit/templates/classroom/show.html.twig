@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ClassroomListController!
+{% endblock %}
+
+{% block body %}
+	<style>
+		.example-wrapper {
+			margin: 1em auto;
+			max-width: 800px;
+			width: 95%;
+			font: 18px / 1.5 sans-serif;
+		}
+		.example-wrapper code {
+			background: #F5F5F5;
+			padding: 2px 6px;
+		}
+	</style>
+
+	<div class="example-wrapper">
+		<h1>Hello
+			{{ controller_name }}! ✅</h1>
+
+		<h2>
+			Afficher Classroom details
+		</h2>
+
+		<h4>
+			ID :
+			{{show.id}}
+		</h4>
+
+		<h4>
+			Nom :
+			{{show.name}}
+		</h4>
+
+
+		<h4>
+			Students :
+		</h4>
+
+		{% for i in show.getStudents() %}
+
+			<h5>
+				NSC :
+				{{i.getNSC()}}
+				--- | ---
+				Email :
+				{{i.getEmail}}
+			</h5>
+
+
+		{% endfor %}
+
+		<form action={{ url('app_classroomList') }}>
+			<input type="submit" value="Liste des Classrooms"/>
+		</form>
+
+	</div>
+{% endblock %}
