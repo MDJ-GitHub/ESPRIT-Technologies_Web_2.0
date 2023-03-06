@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Student;
 use App\Form\StudentType;
+use App\Repository\StudentRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
@@ -27,6 +28,41 @@ class StudentController extends AbstractController
     {
         $repository = $doctrine->getRepository(student::class);
         $list = $repository->findAll();
+
+        return $this->render('student/list.html.twig', [
+            'controller_name' => 'studentListController',
+            'list' => $list
+        ]);
+    }
+
+    #[Route('/student/list/orderByNSC', name: 'app_studentListOrderByNSC')]
+    public function listOrderByNSC(StudentRepository $repository): Response
+    {
+        $list = $repository->orderByNSC();
+
+        return $this->render('student/list.html.twig', [
+            'controller_name' => 'studentListController',
+            'list' => $list
+        ]);
+    }
+
+    #[Route('/student/list/orderByEmail', name: 'app_studentListOrderByEmail')]
+    public function listOrderByEmail(StudentRepository $repository): Response
+    {
+        $list = $repository->orderByEmail();
+
+        return $this->render('student/list.html.twig', [
+            'controller_name' => 'studentListController',
+            'list' => $list
+        ]);
+    }
+
+
+    #[Route('/student/list/findByEmail/', name: 'app_studentListFindByEmail')]
+    public function listFindByEmail(Request $request, StudentRepository $repository,): Response
+    {
+        $em = $request->get('x');
+        $list = $repository->findByEmail($em);
 
         return $this->render('student/list.html.twig', [
             'controller_name' => 'studentListController',
@@ -88,7 +124,7 @@ class StudentController extends AbstractController
     public function show(ManagerRegistry $doctrine, $nsc): Response
     {
         $repository = $doctrine->getRepository(student::class);
-        $show=  $repository->find($nsc);
+        $show =  $repository->find($nsc);
 
         return $this->render('student/show.html.twig', [
             'controller_name' => 'studentListController',
@@ -98,10 +134,15 @@ class StudentController extends AbstractController
 
 
 
-    #[Route('/classroom/routeclassroom', name: 'app_studentRouteStudent')]
-    public function routeStudent(): Response
+    #[Route('/classroom/routeclassroom', name: 'app_studentRouteClassroom')]
+    public function routeClassroom(): Response
     {
         return $this->redirectToRoute('app_classroomList');
     }
-    
+
+    #[Route('/classroom/routeclub', name: 'app_studentRouteClub')]
+    public function routeClub(): Response
+    {
+        return $this->redirectToRoute('app_clubList');
+    }
 }

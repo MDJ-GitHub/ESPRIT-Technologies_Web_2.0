@@ -103,4 +103,10 @@ class ClassroomController extends AbstractController
         return $this->redirectToRoute('app_studentList');
     }
 
+    #[Route('/classroom/routeclub', name: 'app_studentRouteClub')]
+    public function routeClub(): Response
+    {
+        return $this->redirectToRoute('app_clubList');
+    }
+
 }

@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ClassroomListController!
+{% block title %}Hello ClubListController!
 {% endblock %}
 
 {% block body %}
@@ -22,17 +22,17 @@
 			{{ controller_name }}! ✅</h1>
 
 		<h2>
-			List des classroom
+			List des Clubs
 		</h2>
 
 		<table border="2">
 
 			<tr>
 				<td>
-					id
+					REF
 				</td>
 				<td>
-					name
+					CreatedAt
 				</td>
 				<td>
 					supprimer
@@ -40,7 +40,7 @@
 				<td>
 					modifier
 				</td>
-				<td>
+							<td>
 					afficher
 				</td>
 
@@ -49,23 +49,23 @@
 			{% for i in list %}
 				<tr>
 					<td>
-						{{ i.id }}
+						{{ i.REF }}
 					</td>
 					<td>
-						{{ i.name }}
+					{{ i.CreatedAt|date('Y-m-d') }}
 					</td>
 					<td>
-						<form action={{ url('app_classroomRemove',{'id':i.getId()} ) }}>
+						<form action={{ url('app_clubRemove',{'ref':i.getREF()} ) }}>
 							<input type="submit" value="Supprimer"/>
 						</form>
 					</td>
 					<td>
-						<form action={{ url('app_classroomModify',{'id':i.getId()} ) }}>
+						<form action={{ url('app_clubModify',{'ref':i.getREF()} ) }}>
 							<input type="submit" value="Modifier"/>
 						</form>
 					</td>
-					<td>
-						<form action={{ url('app_classroomShow',{'id':i.getId()} ) }}>
+							<td>
+						<form action={{ url('app_clubShow',{'ref':i.getREF()} ) }}>
 							<input type="submit" value="Afficher"/>
 						</form>
 					</td>
@@ -73,19 +73,24 @@
 				{% endfor %}
 			</tr>
 		</table>
-
 		<br>
-		<form action={{ url('app_classroomAdd') }}>
-			<input type="submit" value="Ajouter Classroom"/>
+		<form action={{ url('app_clubAdd') }}>
+			<input type="submit" value="Ajouter Club"/>
 		</form>
 
-		<form action={{ url('app_classroomRouteStudent') }}>
-			<input type="submit" value="Liste des Students"/>
-		</form>
 
-				<form action={{ url('app_studentRouteClub') }}>
-									<input type="submit" value="Liste des Clubs"/>
+
+						<form action={{ url('app_clubRouteStudent') }}>
+									<input type="submit" value="Liste des Students"/>
 								</form>
 
+				<form action={{ url('app_clubRouteClassroom') }}>
+									<input type="submit" value="Liste des Classrooms"/>
+								</form>
+
+
+				<form action={{ url('app_clubRouteStudent') }}>
+									<input type="submit" value="Liste des Students"/>
+								</form>
 	</div>
 {% endblock %}

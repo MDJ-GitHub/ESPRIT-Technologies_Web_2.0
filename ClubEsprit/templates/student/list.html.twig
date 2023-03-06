@@ -43,7 +43,7 @@
 				<td>
 					modifier
 				</td>
-							<td>
+				<td>
 					afficher
 				</td>
 
@@ -70,7 +70,7 @@
 							<input type="submit" value="Modifier"/>
 						</form>
 					</td>
-							<td>
+					<td>
 						<form action={{ url('app_studentShow',{'nsc':i.getNSC()} ) }}>
 							<input type="submit" value="Afficher"/>
 						</form>
@@ -84,9 +84,27 @@
 			<input type="submit" value="Ajouter Student"/>
 		</form>
 
-				<form action={{ url('app_studentRouteStudent') }}>
-									<input type="submit" value="Liste des Classrooms"/>
-								</form>
+
+		<form action={{ url('app_studentListFindByEmail') }}>
+			<input type="text" name='x' value="Insérer"/>
+			<input type="submit" value="Chercher par Email"/>
+		</form>
+
+		<form action={{ url('app_studentListOrderByNSC') }}>
+			<input type="submit" value="Trier par NSC"/>
+		</form>
+
+		<form action={{ url('app_studentListOrderByEmail') }}>
+			<input type="submit" value="Trier par Email"/>
+		</form>
+
+		<form action={{ url('app_studentRouteClassroom') }}>
+			<input type="submit" value="Liste des Classrooms"/>
+		</form>
+
+		<form action={{ url('app_studentRouteClub') }}>
+			<input type="submit" value="Liste des Clubs"/>
+		</form>
 
 	</div>
 {% endblock %}
